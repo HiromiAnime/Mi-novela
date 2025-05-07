@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>¡¡¿Reencarné como la protagonista?!!</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Georgia', serif;
+      background-color: #1b0f10;
+      color: #f8dede;
+      background-image: url('fondo.png');
+      background-size: cover;
+      background-attachment: fixed;
+      overflow-x: hidden;
+    }
+
+    header {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 40px 20px;
+      text-align: center;
+      border-bottom: 2px solid darkred;
+    }
+
+    header h1 {
+      font-size: 2.5em;
+      color: #b60f2e;
+      text-shadow: 0 0 5px #000;
+    }
+
+    .sinopsis {
+      max-width: 800px;
+      margin: 30px auto;
+      background: rgba(30, 10, 10, 0.8);
+      padding: 20px;
+      border-left: 5px solid darkred;
+      border-right: 5px solid darkred;
+      box-shadow: 0 0 20px #460914;
+    }
+
+    .sinopsis h2 {
+      color: #e62b4a;
+    }
+
+    .tarjetas {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin: 40px;
+    }
+
+    .card {
+      width: 250px;
+      height: 350px;
+      perspective: 1000px;
+    }
+
+    .inner-card {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transition: transform 0.8s;
+      transform-style: preserve-3d;
+    }
+
+    .card:hover .inner-card {
+      transform: rotateY(180deg);
+    }
+
+    .front, .back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border: 1px solid #91213a;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .front {
+      background-size: cover;
+      background-position: center;
+    }
+
+    .back {
+      background: #2e0e16;
+      color: #fff;
+      transform: rotateY(180deg);
+      padding: 15px;
+      box-sizing: border-box;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      background: #1a0b0b;
+      border-top: 2px solid darkred;
+    }
+
+    .btn {
+      background: darkred;
+      color: #fff;
+      padding: 12px 30px;
+      text-decoration: none;
+      font-size: 1.1em;
+      border-radius: 6px;
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      background: #8e0d23;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-10%) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+    }
+
+    .petal {
+      position: fixed;
+      top: -10px;
+      width: 30px;
+      height: 30px;
+      background-image: url('petal.png');
+      background-size: cover;
+      animation: fall 10s linear infinite;
+      z-index: 1;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+    <audio id="fondo" loop>
+        <source src="Audio.mp3" type="audio/mpeg">
+        Tu navegador no soporta el audio.
+      </audio>
+      
+      <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const audio = document.getElementById('fondo');
+      
+          // Esperar un clic del usuario
+          document.body.addEventListener('click', () => {
+            audio.play().catch(e => {
+              console.warn("El navegador bloqueó el autoplay.");
+            });
+          }, { once: true });
+        });
+      </script>       
+
+  <!-- Pétalos -->
+  <div class="petal" style="left: 10%; animation-delay: 0s;"></div>
+  <div class="petal" style="left: 25%; animation-delay: 3s;"></div>
+  <div class="petal" style="left: 40%; animation-delay: 1s;"></div>
+  <div class="petal" style="left: 60%; animation-delay: 2s;"></div>
+  <div class="petal" style="left: 75%; animation-delay: 4s;"></div>
+  <div class="petal" style="left: 90%; animation-delay: 5s;"></div>
+
+  <header>
+    <h1>¡¡¿Reencarné como la protagonista?!!</h1>
+  </header>
+
+  <section class="sinopsis">
+    <h2>Sinopsis</h2>
+    <p>Kim Lia, una joven marcada por la violencia y la soledad, muere protegiendo a su único amor: un gato callejero. Pero el destino le ofrece otra oportunidad... en el cuerpo de Lilith Albarich, protagonista de una novela de tragedia disfrazada de romance.</p>
+    <p>Este nuevo mundo no es justo ni noble, pero le brinda un objetivo: vengar a la mujer que todos llaman villana, Alice Agriette. Entre conspiraciones, sangre y magia antigua, Lia descubrirá que el amor verdadero puede nacer en la oscuridad más profunda. Y junto a Alice, está dispuesta a quemar el imperio entero.</p>
+  </section>
+
+  <section class="tarjetas">
+    <div class="card">
+      <div class="inner-card">
+        <div class="front" style="background-image: url('ALICE.png');"></div>
+        <div class="back">
+          <h3>Alice Agriette</h3>
+          <p>“Me llamaron villana, pero jamás comprendieron que mi pecado fue amar con demasiada devoción.” </p>
+
+         <p>Criada para ser emperatriz, Alice conocio la crueldad para obedecer, para gobernar… y para perder. Detrás de esa frialdad, se oculta una niña que jamás conoció ternura. Su amor por Lilith no es una salvación, es un abismo. Si el mundo arde, lo hará a su lado.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="inner-card">
+        <div class="front" style="background-image: url('LILITH.png');"></div>
+        <div class="back">
+          <h3>Lilith Albarich</h3>
+          <p>“Incluso si llego a perderme, no descansaré hasta ver una sonrisa de ella. Si ella es feliz, yo lo seré.” </p>
+
+            <p>Rota por la crueldad del mundo. Encontró paz con el ser más hermoso: Su Garfield. Su muerte no fue un final fue un inicio ahora como Lilith, reescribe la historia con sangre. No busca redención ni amor, solo una cosa: venganza para su Amada.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="inner-card">
+        <div class="front" style="background-image: url('EBETH.jpg');"></div>
+        <div class="back">
+          <h3>Ebeth Di Epherial</h3>
+          <p>Reencarnado como noble, con una herida en el alma. Cree que el mundo es una historia, pero sus sentimientos son reales. Su corazón pertenece a un chico que lo hizo sentir humano.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="inner-card">
+        <div class="front" style="background-image: url('COLLAR.png');"></div>
+        <div class="back">
+          <h3>El Corazón de Rubí</h3>
+          <p>Un collar con un rubí profundo como la sangre. Regalo de Alice para Lilith. Brilla cuando están juntas. Se dice que en su joya habita una parte del alma de ambas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <a class="btn" href="https://www.wattpad.com/story/273222976-%C2%A1%C2%A1%C2%BFreencarn%C3%A9-como-la-protagonista" target="_blank">
+      Leer la novela en Wattpad
+    </a>
+  </footer>
+</body>
+</html>
