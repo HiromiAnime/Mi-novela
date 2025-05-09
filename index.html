@@ -21,6 +21,7 @@
       padding: 40px 20px;
       text-align: center;
       border-bottom: 2px solid darkred;
+      animation: fadeIn 2s ease-in-out;
     }
 
     header h1 {
@@ -37,6 +38,7 @@
       border-left: 5px solid darkred;
       border-right: 5px solid darkred;
       box-shadow: 0 0 20px #460914;
+      animation: fadeIn 2s ease-in-out;
     }
 
     .sinopsis h2 {
@@ -55,7 +57,17 @@
       width: 250px;
       height: 350px;
       perspective: 1000px;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 1s forwards;
+      cursor: pointer;
     }
+
+    .card:nth-child(1) { animation-delay: 0.2s; }
+    .card:nth-child(2) { animation-delay: 0.5s; }
+    .card:nth-child(3) { animation-delay: 0.8s; }
+    .card:nth-child(4) { animation-delay: 1.1s; }
+    .card:nth-child(5) { animation-delay: 1.4s; }
 
     .inner-card {
       width: 100%;
@@ -97,6 +109,7 @@
       padding: 30px;
       background: #1a0b0b;
       border-top: 2px solid darkred;
+      animation: fadeIn 2s ease-in-out;
     }
 
     .btn {
@@ -118,6 +131,16 @@
       100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
     }
 
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     .petal {
       position: fixed;
       top: -10px;
@@ -129,28 +152,53 @@
       z-index: 1;
       pointer-events: none;
     }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+
+    .modal-content {
+      background: #2e0e16;
+      padding: 20px;
+      max-width: 600px;
+      color: #f8dede;
+      border: 2px solid darkred;
+      border-radius: 10px;
+      position: relative;
+    }
+
+    .close {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      color: #f8dede;
+      font-size: 1.5em;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
-    <audio id="fondo" loop>
-        <source src="Audio.mp3" type="audio/mpeg">
-        Tu navegador no soporta el audio.
-      </audio>
-      
-      <script>
-        document.addEventListener('DOMContentLoaded', function () {
-          const audio = document.getElementById('fondo');
-      
-          // Esperar un clic del usuario
-          document.body.addEventListener('click', () => {
-            audio.play().catch(e => {
-              console.warn("El navegador bloqueó el autoplay.");
-            });
-          }, { once: true });
-        });
-      </script>       
-
-  <!-- Pétalos -->
+  <audio id="fondo" loop>
+    <source src="Audio.mp3" type="audio/mpeg">
+    Tu navegador no soporta el audio.
+  </audio>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const audio = document.getElementById('fondo');
+      document.body.addEventListener('click', () => {
+        audio.play().catch(e => console.warn("El navegador bloqueó el autoplay."));
+      }, { once: true });
+    });
+  </script>
   <div class="petal" style="left: 10%; animation-delay: 0s;"></div>
   <div class="petal" style="left: 25%; animation-delay: 3s;"></div>
   <div class="petal" style="left: 40%; animation-delay: 1s;"></div>
@@ -164,60 +212,171 @@
 
   <section class="sinopsis">
     <h2>Sinopsis</h2>
-    <p>Kim Lia, una joven marcada por la violencia y la soledad, muere protegiendo a su único amor: un gato callejero. Pero el destino le ofrece otra oportunidad... en el cuerpo de Lilith Albarich, protagonista de una novela de tragedia disfrazada de romance.</p>
-    <p>Este nuevo mundo no es justo ni noble, pero le brinda un objetivo: vengar a la mujer que todos llaman villana, Alice Agriette. Entre conspiraciones, sangre y magia antigua, Lia descubrirá que el amor verdadero puede nacer en la oscuridad más profunda. Y junto a Alice, está dispuesta a quemar el imperio entero.</p>
+    <p class="typing" id="linea1"></p>
+    <p class="typing" id="linea2"></p>
   </section>
 
   <section class="tarjetas">
-    <div class="card">
+    
+    <div class="card" onclick="abrirModal('modal-dominic')">
       <div class="inner-card">
-        <div class="front" style="background-image: url('ALICE.png');"></div>
+        <div class="front" style="background-image: url('DOMINIC.png');"></div>
         <div class="back">
-          <h3>Alice Agriette</h3>
-          <p>“Me llamaron villana, pero jamás comprendieron que mi pecado fue amar con demasiada devoción.” </p>
-
-         <p>Criada para ser emperatriz, Alice conocio la crueldad para obedecer, para gobernar… y para perder. Detrás de esa frialdad, se oculta una niña que jamás conoció ternura. Su amor por Lilith no es una salvación, es un abismo. Si el mundo arde, lo hará a su lado.</p>
+          <h3>Dominic Elden</h3>
+          <p>El heredero que controla con sonrisas. Detrás de sus modales, esconde una obsesión peligrosa por la pureza... y por Lilith.</p>
         </div>
       </div>
     </div>
-
-    <div class="card">
-      <div class="inner-card">
-        <div class="front" style="background-image: url('LILITH.png');"></div>
-        <div class="back">
-          <h3>Lilith Albarich</h3>
-          <p>“Incluso si llego a perderme, no descansaré hasta ver una sonrisa de ella. Si ella es feliz, yo lo seré.” </p>
-
-            <p>Rota por la crueldad del mundo. Encontró paz con el ser más hermoso: Su Garfield. Su muerte no fue un final fue un inicio ahora como Lilith, reescribe la historia con sangre. No busca redención ni amor, solo una cosa: venganza para su Amada.</p>
-        </div>
+    
+    <div class="card" onclick="abrirModal('modal-lia')">
+    <div class="inner-card">
+      <div class="front" style="background-image: url('LILITH.png');"></div>
+      <div class="back">
+        <h3>Kim Lia (Lilith)</h3>
+        <p>“Incluso si llego a perderme, no descansaré hasta ver una sonrisa de ella. Si ella es feliz, yo lo seré.”</p>
       </div>
     </div>
-
-    <div class="card">
-      <div class="inner-card">
-        <div class="front" style="background-image: url('EBETH.jpg');"></div>
-        <div class="back">
-          <h3>Ebeth Di Epherial</h3>
-          <p>Reencarnado como noble, con una herida en el alma. Cree que el mundo es una historia, pero sus sentimientos son reales. Su corazón pertenece a un chico que lo hizo sentir humano.</p>
-        </div>
+     </div>
+  
+   
+   <div class="card" onclick="abrirModal('modal-alice')">
+    <div class="inner-card">
+      <div class="front" style="background-image: url('ALICE.png');"></div>
+      <div class="back">
+        <h3>Alice Agriette</h3>
+        <p>“Me llamaron villana, pero jamás comprendieron que mi pecado fue amar con demasiada devoción.”</p>
       </div>
     </div>
-
-    <div class="card">
-      <div class="inner-card">
-        <div class="front" style="background-image: url('COLLAR.png');"></div>
-        <div class="back">
-          <h3>El Corazón de Rubí</h3>
-          <p>Un collar con un rubí profundo como la sangre. Regalo de Alice para Lilith. Brilla cuando están juntas. Se dice que en su joya habita una parte del alma de ambas.</p>
-        </div>
+  </div>
+  
+  
+  <div class="card" onclick="abrirModal('modal-ebeth')">
+    <div class="inner-card">
+      <div class="front" style="background-image: url('EBETH.png');"></div>
+      <div class="back">
+        <h3>Ebeth Di Epherial</h3>
+        <p>Sumisa por tradición, peligrosa por decisión. Una dama noble que oculta una daga y secretos entre sus sonrisas dulces.</p>
       </div>
     </div>
+  </div>
+
+  <div class="card" onclick="abrirModal('modal-liath')">
+    <div class="inner-card">
+      <div class="front" style="background-image: url('Liath.png');"></div>
+      <div class="back">
+        <h3>Liath Collied</h3>
+        <p>Un collar con un rubí profundo como la sangre. Regalo de Alice para Lilith. Brilla cuando están juntas. Se dice que en su joya habita una parte del alma de ambas.</p>
+      </div>
+    </div>
+  </div>
+  
   </section>
+  
+  <div class="modal" id="modal-liath">
+    <div class="modal-content">
+      <span class="close" onclick="cerrarModal('modal-liath')">&times;</span>
+      <h2>Liath Collied</h2>
+      <p><strong>Rol:</strong> Noble de alto rango / Heredero / Enamorado de Ebeth</p>
+      <p><strong>Edad actual:</strong> 16 años</p>
+      <p><strong>Estética:</strong> Cabello albino, ojos esmeralda</p>
+      <p><strong>Orientación:</strong> Gay</p>
+      <p><strong>Pasado:</strong> Busca el anillo de su promesa perdida</p>
+      <p><strong>Personalidad:</strong> Serio en público, dulce en privado</p>
+      <p><strong>Relación con Ebeth:</strong> Enamorado en secreto, espera el momento justo</p>
+      <p><strong>Motivación:</strong> Cumplir su promesa de amor</p>
+      <p class="quote">“No necesito su amor ahora… solo necesito cumplir mi promesa.”</p>
+    </div>
+  </div>
+
+  <div class="modal" id="modal-dominic">
+    <div class="modal-content">
+      <span class="close" onclick="cerrarModal('modal-dominic')">&times;</span>
+      <h2>Dominic Elden</h2>
+      <p>Educado con el deber de gobernar, Dominic es perfección en apariencia: amable, sabio y cortés. Pero en su interior, es un ser roto que idolatra la pureza hasta el extremo. Ama a Lilith no por quien es, sino por lo que representa para su visión del mundo. Es un antagonista silencioso, manipulador, que cree que amar es poseer... y purificar.</p>
+    </div>
+  </div>
+  
+<div class="modal" id="modal-lia">
+    <div class="modal-content">
+      <span class="close" onclick="cerrarModal('modal-lia')">&times;</span>
+      <h2>Kim Lia / Lilith Albarich</h2>
+      <p><strong>Rol:</strong> Protagonista reencarnada</p>
+      <p><strong>Edad actual:</strong> 16 años</p>
+      <p><strong>Estética:</strong> Cabello negro azabache, ojos zafiro</p>
+      <p><strong>Orientación:</strong> Lésbica</p>
+      <p><strong>Pasado:</strong> Abusada en su vida anterior, asesinada, reencarna</p>
+      <p><strong>Personalidad:</strong> Calculadora, protectora, vengativa</p>
+      <p><strong>Relación con Alice:</strong> Hará lo que sea por ella</p>
+      <p><strong>Motivación:</strong> Destruir al reino por el bien de su amada</p>
+      <p class="quote">“Si el mundo la quiere romper, yo lo romperé primero.”</p>
+    </div>
+  </div>
+  
+  
+  <div class="modal" id="modal-alice">
+    <div class="modal-content">
+      <span class="close" onclick="cerrarModal('modal-alice')">&times;</span>
+      <h2>Alice Agriette</h2>
+  <p><strong>Rol:</strong> Villana original / Interés amoroso principal</p>
+  <p><strong>Edad actual:</strong> 17 años</p>
+  <p><strong>Estética:</strong> Cabello castaño largo, ojos rojo sangre</p>
+  <p><strong>Orientación:</strong> Lésbica</p>
+  <p><strong>Pasado:</strong> Criada como emperatriz perfecta, marcada por una maldición</p>
+  <p><strong>Personalidad:</strong> Firme, inteligente, distante</p>
+  <p><strong>Relación con Lilith/Lia:</strong> Por primera vez, se siente verdaderamente vista</p>
+  <p><strong>Motivación:</strong> Ser libre y amar sin miedo</p>
+  <p class="quote">“¿Alguna vez has amado tanto... que preferiste callarlo para no destruirlo?”</p>
+    </div>
+  </div>
+  
+  
+  <div class="modal" id="modal-ebeth">
+    <div class="modal-content">
+      <span class="close" onclick="cerrarModal('modal-ebeth')">&times;</span>
+      <h2>Ebeth Di Epherial</h2>
+      <p>Prima lejana de Alice, nacida en una familia de nobleza menor. Educada para complacer, aprendió a sobrevivir fingiendo obediencia. Pero cada sonrisa suya es una jugada y cada silencio, un plan. Es un comodín en el tablero de poder, y solo ella sabe a quién realmente sirve.</p>
+    </div>
+  </div>
+  
 
   <footer>
     <a class="btn" href="https://www.wattpad.com/story/273222976-%C2%A1%C2%A1%C2%BFreencarn%C3%A9-como-la-protagonista" target="_blank">
       Leer la novela en Wattpad
     </a>
   </footer>
+
+  <script>
+    const texto1 = "Kim Lia, una joven marcada por la violencia y la soledad, muere protegiendo a su único amor: un gato callejero. Pero el destino le ofrece otra oportunidad... en el cuerpo de Lilith Albarich, protagonista de una novela de tragedia disfrazada de romance.";
+    const texto2 = "Este nuevo mundo no es justo ni noble, pero le brinda un objetivo: vengar a la mujer que todos llaman villana, Alice Agriette. Entre conspiraciones, sangre y magia antigua, Lia descubrirá que el amor verdadero puede nacer en la oscuridad más profunda. Y junto a Alice, está dispuesta a quemar el imperio entero.";
+
+    function escribirTexto(texto, idElemento, delay = 30, doneCallback = null) {
+      const el = document.getElementById(idElemento);
+      let i = 0;
+      function escribir() {
+        if (i < texto.length) {
+          el.textContent += texto.charAt(i);
+          i++;
+          setTimeout(escribir, delay);
+        } else if (doneCallback) {
+          doneCallback();
+        }
+      }
+      escribir();
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      escribirTexto(texto1, "linea1", 25, () => {
+        escribirTexto(texto2, "linea2", 25);
+      });
+    });
+
+    function abrirModal(id) {
+      document.getElementById(id).style.display = 'flex';
+    }
+
+    function cerrarModal(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+  </script>
 </body>
 </html>
